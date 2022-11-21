@@ -13,6 +13,8 @@ import (
 	"github.com/dgryski/trifles/uuid"
 )
 
+var userNotFound = errors.New("cannot find user you are looking for")
+
 // CreateUser is the resolver for the createUser field.
 func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) (*model.User, error) {
 	log.Println("Create a new USER")
@@ -32,7 +34,7 @@ func (r *mutationResolver) RemoveUser(ctx context.Context, input model.DeleteUse
 		}
 	}
 	if index == -1 {
-		return nil, errors.New("cannot find user you are looking for")
+		return nil, userNotFound
 	}
 	user := users[index]
 	users = append(users[:index], users[index+1:]...)
@@ -51,7 +53,7 @@ func (r *mutationResolver) UpdateUser(ctx context.Context, input model.UpdateUse
 		}
 	}
 	if index == -1 {
-		return nil, errors.New("cannot find user you are looking for")
+		return nil, userNotFound
 	}
 
 	if input.FirstName != nil {
@@ -75,7 +77,7 @@ func (r *queryResolver) User(ctx context.Context, id string) (*model.User, error
 			return user, nil
 		}
 	}
-	return nil, errors.New("cannot find user you are looking for")
+	return nil, userNotFound
 }
 
 // Users is the resolver for the users field.
