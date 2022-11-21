@@ -16,7 +16,7 @@ import (
 var userNotFound = errors.New("cannot find user you are looking for")
 
 // CreateUser is the resolver for the createUser field.
-func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) (*model.User, error) {
+func (r *mutationResolver) CreateUser(_ context.Context, input model.NewUser) (*model.User, error) {
 	log.Println("Create a new USER")
 	uuidValue := uuid.UUIDv4()
 
@@ -26,7 +26,7 @@ func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) 
 }
 
 // RemoveUser is the resolver for the removeUser field.
-func (r *mutationResolver) RemoveUser(ctx context.Context, input model.DeleteUser) (*model.User, error) {
+func (r *mutationResolver) RemoveUser(_ context.Context, input model.DeleteUser) (*model.User, error) {
 	index := -1
 	for i, user := range users {
 		if user.ID == input.ID {
@@ -43,7 +43,7 @@ func (r *mutationResolver) RemoveUser(ctx context.Context, input model.DeleteUse
 }
 
 // UpdateUser is the resolver for the updateUser field.
-func (r *mutationResolver) UpdateUser(ctx context.Context, input model.UpdateUser) (*model.User, error) {
+func (r *mutationResolver) UpdateUser(_ context.Context, input model.UpdateUser) (*model.User, error) {
 	index := -1
 	u := &model.User{}
 	for i, user := range users {
@@ -71,7 +71,7 @@ func (r *mutationResolver) UpdateUser(ctx context.Context, input model.UpdateUse
 }
 
 // User is the resolver for the user field.
-func (r *queryResolver) User(ctx context.Context, id string) (*model.User, error) {
+func (r *queryResolver) User(_ context.Context, id string) (*model.User, error) {
 	for _, user := range users {
 		if user.ID == id {
 			return user, nil
@@ -81,7 +81,7 @@ func (r *queryResolver) User(ctx context.Context, id string) (*model.User, error
 }
 
 // Users is the resolver for the users field.
-func (r *queryResolver) Users(ctx context.Context) ([]*model.User, error) {
+func (r *queryResolver) Users(_ context.Context) ([]*model.User, error) {
 	return users, nil
 }
 
