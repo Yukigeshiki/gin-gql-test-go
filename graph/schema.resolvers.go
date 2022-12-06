@@ -31,6 +31,7 @@ func (r *mutationResolver) RemoveUser(_ context.Context, input model.DeleteUser)
 	for i, user := range users {
 		if user.ID == input.ID {
 			index = i
+			break
 		}
 	}
 	if index == -1 {
@@ -50,6 +51,7 @@ func (r *mutationResolver) UpdateUser(_ context.Context, input model.UpdateUser)
 		if user.ID == input.ID {
 			index = i
 			u = user
+			break
 		}
 	}
 	if index == -1 {
