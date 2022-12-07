@@ -30,7 +30,6 @@ func main() {
 	r.POST("/query", graphqlHandler())
 	r.GET("/", playgroundHandler())
 
-	if err := r.Run(); err != nil {
-		panic("Server failed to start on port: " + "8080")
-	}
+	p := "8080"
+	_ = r.Run(":" + p)
 }
